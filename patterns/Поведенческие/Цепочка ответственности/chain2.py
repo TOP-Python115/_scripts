@@ -1,5 +1,6 @@
 # event broker
 # command-query selector (cqs)
+
 from abc import ABC, abstractmethod
 from enum import Enum
 
@@ -68,6 +69,12 @@ class CreatureModifier(ABC):
     def handle(self, sender: 'Creature', query: Query):
         pass
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.game.queries.remove(self.handle)
+
 
 class DoubleAttackModifier(CreatureModifier):
     def handle(self, sender: 'Creature', query: Query):
@@ -87,4 +94,9 @@ goblin = Creature(new_game, 'Strong goblin', 2, 1)
 print(goblin)
 
 dam = DoubleAttackModifier(new_game, goblin)
+print(goblin)
+
+with DoubleAttackModifier(new_game, goblin):
+    print(goblin)
+
 print(goblin)
