@@ -29,7 +29,7 @@ class BankAccount:
         return None
 
     def redo(self) -> Optional[Memento]:
-        """Возврат к следующему состоянию"""
+        """Возврат к следующему состоянию."""
         if not self.is_last():
             self._index += 1
             memento = self.changes[self._index]
@@ -59,4 +59,6 @@ print(f'Undo 2 — {ba}\n')
 ba.redo()
 print(f'Redo 1 — {ba}')
 ba.redo()
-print(f'Redo 2 — {ba}')
+print(f'Redo 2 — {ba}\n')
+
+print(f'{ba.is_last() = }')
