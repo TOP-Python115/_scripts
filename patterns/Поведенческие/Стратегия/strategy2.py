@@ -23,9 +23,9 @@ class TIFFDecoder(ImageDecoder):
         return 'TIFF Image'
 
 
-class ImageHandler:
+class Image:
     @classmethod
-    def open(cls, image_path: str):
+    def open(cls, image_path: str) -> 'Image':
         ext = image_path.rsplit('.', 1)[-1].lower()
         if ext in ('png', ):
             decoder = PNGDecoder
@@ -52,6 +52,6 @@ pic1 = 'figure.png'
 pic2 = 'wallpaper.jpg'
 pic3 = 'sprite.tiff'
 
-print(ImageHandler.open(pic1))
-print(ImageHandler.open(pic2))
-print(ImageHandler.open(pic3))
+print(Image.open(pic1))
+print(Image.open(pic2))
+print(Image.open(pic3))
