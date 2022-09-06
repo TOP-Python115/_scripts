@@ -7,6 +7,8 @@ class Item(Enum):
     ROCK = 'rock'
     PAPER = 'paper'
     SCISSORS = 'scissors'
+    LIZARD = 'lizard'
+    SPOK = 'spok'
 
     @classmethod
     def rand(cls):
@@ -20,6 +22,7 @@ class Tie(Exception):
 class Strategy(ABC):
     item: Item
 
+    # метод нарушает OCP
     @staticmethod
     @abstractmethod
     def check(other: Item) -> bool:
@@ -29,6 +32,7 @@ class Strategy(ABC):
 class Rock(Strategy):
     item = Item.ROCK
 
+    # метод нарушает OCP
     @staticmethod
     def check(other: Item) -> bool:
         if other is Item.SCISSORS:
@@ -42,6 +46,7 @@ class Rock(Strategy):
 class Paper(Strategy):
     item = Item.PAPER
 
+    # метод нарушает OCP
     @staticmethod
     def check(other: Item) -> bool:
         if other is Item.ROCK:
@@ -55,6 +60,7 @@ class Paper(Strategy):
 class Scissors(Strategy):
     item = Item.PAPER
 
+    # метод нарушает OCP
     @staticmethod
     def check(other: Item) -> bool:
         if other is Item.PAPER:
@@ -65,9 +71,24 @@ class Scissors(Strategy):
             raise Tie
 
 
+# масштабирование
+class Lizard(Strategy):
+    item = Item.LIZARD
+
+    @staticmethod
+    def check(other: Item) -> bool:
+        if other is Item.PAPER or other is Item.SPOK:
+            return True
+        elif other is Item.ROCK or other is Item.SCISSORS:
+            return False
+        elif other is Item.LIZARD:
+            raise Tie
+
+
 class Random(Strategy):
     item = Item.rand()
 
+    # метод нарушает OCP
     @classmethod
     def check(cls, other: Item) -> bool:
         if cls.item is Item.ROCK:
