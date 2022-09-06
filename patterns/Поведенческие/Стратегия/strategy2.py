@@ -43,8 +43,9 @@ class ImageHandler:
         self._byterange = byterange
 
     def __str__(self):
-        return f'<Image: path={self._filename}, bytes=' \
-               f'{" ".join(hex(ord(char))[2:] for char in self._byterange)[:9]}...>'
+        byterange = " ".join(hex(ord(char))[2:] for char in self._byterange)
+        return f'<Image: path={self._filename},' \
+               f' bytes={byterange[:9]}...>'
 
 
 pic1 = 'figure.png'
