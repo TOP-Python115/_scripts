@@ -53,7 +53,7 @@ def iteration(species: list[Hawk | Dove]):
             elif move2 == 'defend':
                 a2.alive = False
                 a1.reproducing = True
-        elif move2 == 'defend':
+        elif move1 == 'defend':
             if move2 == 'attack':
                 a1.alive = False
                 a2.reproducing = True
