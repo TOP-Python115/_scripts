@@ -1,6 +1,7 @@
 """Сущность Контроллер (MVC)."""
 
-import view
+# import view
+import view_gui as view
 import model
 
 
