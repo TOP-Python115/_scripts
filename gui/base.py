@@ -15,14 +15,14 @@ mainframe.grid(row=0, column=0, sticky='nsew')
 ttk.Label(
     mainframe,
     text='Введите текст: ',
-    font=('Arounder', 26)
+    font=('Comic Sans MS', 22)
 ).grid(row=0, column=0, sticky='nw')
 
 text_field = tkinter.StringVar()
 ttk.Entry(
     mainframe,
     textvariable=text_field,
-    font=('Hack', 20)
+    font=('Courier New', 20)
 ).grid(row=1, column=0, sticky='nwe')
 
 btn = ttk.Button(mainframe, text='\u2193', command=btn_on_click)
@@ -32,7 +32,7 @@ text_blabel = tkinter.StringVar()
 ttk.Label(
     mainframe,
     textvariable=text_blabel,
-    font=('Hack', 26), background='grey'
+    font=('Courier New', 26, 'bold')  # , background='grey'
 ).grid(row=2, column=0, columnspan=2, sticky='nsew', pady=5)
 
 root.rowconfigure(0, weight=1)
