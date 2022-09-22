@@ -1,6 +1,6 @@
 from pprint import pprint
 
-import model_exceptions as mexc
+import storage_exceptions as s_exc
 
 items = []
 
@@ -13,7 +13,7 @@ def create_item(name: str, price: int, quantity: int) -> None:
         items
     ))
     if existing:
-        raise mexc.ItemAlreadyStored(f'{name} уже сохранён!')
+        raise s_exc.ItemAlreadyStoredError(f'{name} уже сохранён!')
     else:
         items.append(
             {'name': name, 'price': price, 'quantity': quantity}
@@ -33,7 +33,7 @@ def read_item(name: str) -> dict:
     if found:
         return found[0]
     else:
-        raise mexc.ItemNotStored(f'Невозможно извлечь {name}, так как запись отсутствует.')
+        raise s_exc.ItemNotStoredError(f'Невозможно извлечь {name}, так как запись отсутствует.')
 
 def read_items() -> list[dict]:
     global items
@@ -51,7 +51,7 @@ def update_item(name: str, price: int, quantity: int) -> None:
             'name': name, 'price': price, 'quantity': quantity
         }
     else:
-        raise mexc.ItemNotStored(f'Невозможно обновить {name}, так как запись отсутствует.')
+        raise s_exc.ItemNotStoredError(f'Невозможно обновить {name}, так как запись отсутствует.')
 
 
 def delete_item(name: str) -> None:
@@ -63,7 +63,7 @@ def delete_item(name: str) -> None:
     if indexed_items:
         del items[indexed_items[0][0]]
     else:
-        raise mexc.ItemNotStored(f'Невозможно удалить {name}, так как запись отсутствует.')
+        raise s_exc.ItemNotStoredError(f'Невозможно удалить {name}, так как запись отсутствует.')
 
 
 if __name__ == '__main__':
