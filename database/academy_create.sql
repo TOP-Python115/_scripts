@@ -7,5 +7,6 @@ create table if not exists Curators (
     `Surname` varchar(30) not null,
     constraint PK_id primary key(`id`)
 );
-
+alter table Curators add 
+	constraint CH_Name check (`Name` <> '');
 
