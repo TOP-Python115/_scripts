@@ -1,4 +1,3 @@
-
 from db_config import get_db_config
 from mysql.connector import MySQLConnection, Error
 from sys import stderr
@@ -13,6 +12,10 @@ def db_connect():
             if DEBUG:
                 if connection.is_connected():
                     print('Connection established')
+
+            with connection.cursor() as cursor:
+                if DEBUG:
+                    print(cursor)
 
     except Error as e:
         print(e, file=stderr)
