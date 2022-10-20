@@ -4,6 +4,9 @@ from sqlalchemy.orm import relationship, backref
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
+from pathlib import Path
+from sys import path
 from pprint import pprint
 
 import re
@@ -36,6 +39,7 @@ class Author(Base):
     first_name = Column(String)
     last_name = Column(String)
     books = relationship('Book', backref=backref('book'))
+    publishers = relationship('Publisher', secondary=author_publisher, back_populates='authors')
 
     def __repr__(self):
         return f"<name: '{self.first_name} {self.last_name}'>"
@@ -47,6 +51,7 @@ class Book(Base):
     id = Column('book_id', Integer, primary_key=True)
     title = Column(String)
     author_id = Column(Integer, ForeignKey('author.author_id'))
+    publishers = relationship('Publisher', secondary=book_publisher, back_populates='books')
 
     def __repr__(self):
         return f"<title: '{self.title}'>"
@@ -57,12 +62,14 @@ class Publisher(Base):
     __tablename__ = 'publisher'
     publisher_id = Column(Integer, primary_key=True)
     name = Column(String)
-    authors = relationship('Author', secondary=author_publisher)
-    books = relationship('Book', secondary=book_publisher)
+    authors = relationship('Author', secondary=author_publisher, back_populates='publishers')
+    books = relationship('Book', secondary=book_publisher, back_populates='publishers')
 
 
 if __name__ == '__main__':
-    engine = create_engine("sqlite:///author_book_publisher.db")
+    db_path = Path(path[0]) / 'author_book_publisher.db'
+    engine = create_engine(f"sqlite:///{db_path}")
+    # engine.echo = True
     Session = sessionmaker(bind=engine)
     session = Session()
 
@@ -91,3 +98,12 @@ if __name__ == '__main__':
                           .where(text('author.last_name = "King"'))
                           .all())
     pprint(kings_books)
+    print('\n'*2)
+
+    publishers = session.query(Publisher).all()
+    print(publishers, end='\n'*2)
+
+    for each in publishers:
+        print(each.name)
+        print(each.authors)
+        print(each.books, end='\n'*2)
