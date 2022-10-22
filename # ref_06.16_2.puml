@@ -1,0 +1,56 @@
+@startuml
+
+package "пример 1" <<Frame>> {
+
+    class Point {
+        +x: int
+        +y: int
+        __str__()
+    }
+
+    class Polygon {
+        +points: tuple
+        +edges: tuple
+        +perimeter() -> float
+    }
+    Polygon::points o-- "агрегация" Point
+    Polygon::edges *-- "сильная композиция" LineSegment
+
+    class LineSegment {
+        +start: Point
+        +end: Point
+        +length() -> float
+    }
+    LineSegment::start o-- Point
+    LineSegment::end o-- "агрегация" Point
+
+}
+
+
+package "пример 2" <<Frame>> {
+
+    class Point_ {
+        +x: int
+        +y: int
+        __str__()
+    }
+
+    class Polygon_ {
+        +points: tuple
+        +edges: tuple
+        +perimeter() -> float
+    }
+    Polygon_::points *-- "слабая\nкомпозиция" Point_
+    Polygon_::edges *-- "сильная композиция" LineSegment_
+
+    class LineSegment_ {
+        +start: Point
+        +end: Point
+        +length() -> float
+    }
+    LineSegment_::start o-- Point_
+    LineSegment_::end o-- "агрегация" Point_
+
+}
+
+@enduml
