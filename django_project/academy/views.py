@@ -2,6 +2,8 @@ from django.http import HttpResponse
 
 from .models import Faculty
 
+from pprint import pprint
+
 
 def institutes_list(request):
     institutes = Faculty.objects.all()
@@ -14,6 +16,12 @@ def institutes_list(request):
 
 
 def faculty_main(request, faculty_obj: Faculty):
+    print()
+    pprint([attr for attr in dir(request) if not attr.startswith('__')])
+    print(f'\n{request.path}\n')
+    pprint(list(request.headers.keys()))
+    print()
+
     document = f'<h2>{faculty_obj.name}</h2>\n'
     document += '<h4>История института</h4>\n' \
                 '<p>...</p>\n'
