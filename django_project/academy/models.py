@@ -2,6 +2,7 @@ from django.db import models
 
 from transliterate import translit
 
+
 class Faculty(models.Model):
     name = models.CharField(max_length=100)
 

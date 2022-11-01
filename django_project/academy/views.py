@@ -13,12 +13,11 @@ def institutes_list(request):
     return HttpResponse(document)
 
 
-def fti_main(request):
-    fti = Faculty.objects.filter(name='Физико-Технологический Институт')[0]
-    document = '<h2>Физико-Технологический Институт</h2>\n'
+def faculty_main(request, faculty_obj: Faculty):
+    document = f'<h2>{faculty_obj.name}</h2>\n'
     document += '<h4>История института</h4>\n' \
                 '<p>...</p>\n'
-    departments = fti.department_set.all()
+    departments = faculty_obj.department_set.all()
     document += '<h4>Кафедры</h4>\n' \
                 '<ol>\n'
     for obj in departments:
