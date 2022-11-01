@@ -1,8 +1,20 @@
 from django.db import models
 
+from transliterate import translit
 
 class Faculty(models.Model):
     name = models.CharField(max_length=100)
+
+    def __repr__(self):
+        short = [
+            translit(word[0].lower(), 'ru', reversed=True)
+            for word in str(self.name).replace('-', ' ').split()
+            if len(word) > 1
+        ]
+        return ''.join(short)
+
+    def __str__(self):
+        return f'{self.name}'
 
 
 class Department(models.Model):
@@ -11,11 +23,17 @@ class Department(models.Model):
     financing = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     faculty_id = models.ForeignKey(Faculty, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.name}'
+
 
 class Group(models.Model):
     name = models.CharField(max_length=10)
     year = models.PositiveSmallIntegerField()
     department_id = models.ForeignKey(Department, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.name}'
 
 
 class Curator(models.Model):
