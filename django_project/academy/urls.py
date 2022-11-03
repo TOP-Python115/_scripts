@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .models import Faculty
-from .views import institutes_list, faculty_main
+from .fbv_views import institutes_list, faculty_main
 
 urlpatterns = [
     path('', institutes_list, name='academy_main'),
