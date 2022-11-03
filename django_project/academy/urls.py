@@ -2,7 +2,7 @@ from django.urls import path
 
 from .models import Faculty
 from .fbv_views import institutes_list, faculty_main
-from .views import About, FacultiesView
+from .views import About, FacultiesView, FacultyView
 
 
 urlpatterns = [
@@ -14,8 +14,8 @@ urlpatterns = [
 faculties = Faculty.objects.all()
 urlpatterns += [
     path(f'{faculty!r}/',
-         faculty_main,
-         {'faculty_obj': faculty},
+         FacultyView.as_view(),
+         {'pk': faculty.id},
          name=f'{faculty!r}_main')
     for faculty in faculties
 ]
