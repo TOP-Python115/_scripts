@@ -6,6 +6,10 @@ from transliterate import translit
 class Faculty(models.Model):
     name = models.CharField(max_length=100)
 
+    @property
+    def short(self):
+        return self.__repr__()
+
     def __repr__(self):
         short = [
             translit(word[0].lower(), 'ru', reversed=True)

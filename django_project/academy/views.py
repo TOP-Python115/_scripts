@@ -25,12 +25,15 @@ class FacultiesView(ListView):
     model = Faculty
 
     def get(self, request, *args, **kwargs):
-        document = '<h2>Институты университета</h2>\n'
-        document += '<ol>\n'
-        for obj in self.model.objects.all():
-            document += f'\t<li><a href=/academy/{obj!r}>{obj!s}</a></li>\n'
-        document += '</ol>'
-        return HttpResponse(document)
+        return render(
+            request,
+            'academy/institutes.html',
+            {
+                'title': 'Главная',
+                'header': 'Институты УрФУ',
+                'institutes': self.model.objects.all()
+            }
+        )
 
 
 class FacultyView(DetailView):
