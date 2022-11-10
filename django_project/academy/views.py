@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView, ListView, DetailView
 
+from django.shortcuts import render
 from django.http import HttpResponse
 
 from .models import Faculty
@@ -7,7 +8,17 @@ from .models import Faculty
 
 class About(TemplateView):
     def get(self, request, *args, **kwargs):
-        return HttpResponse('History of Academy')
+        return render(
+            request,
+            # путь к файлу с шаблоном
+            'academy/about.html',
+            # объект контекста или словарь для подстановки в конструктор Context
+            {
+                'title': 'Об университете',
+                'academy_name': 'Уральский Федеральный Университет',
+                'text': 'Создан в 2011 году на базе Уральского Политехнического Института им. Кирова и Уральского Государственного Университета им. Горького',
+            }
+        )
 
 
 class FacultiesView(ListView):
