@@ -14,6 +14,7 @@ class About(TemplateView):
             'academy/about.html',
             # объект контекста или словарь для подстановки в конструктор Context
             {
+                'base_path': 'academy/base.html',
                 'title': 'Об университете',
                 'academy_name': 'Уральский Федеральный Университет',
                 'text': 'Создан в 2011 году на базе Уральского Политехнического Института им. Кирова и Уральского Государственного Университета им. Горького',
@@ -29,6 +30,7 @@ class FacultiesView(ListView):
             request,
             'academy/institutes.html',
             {
+                'base_path': 'academy/base.html',
                 'title': 'Главная',
                 'header': 'Институты УрФУ',
                 'institutes': self.model.objects.all()

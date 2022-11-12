@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
+{% extends base_path %}
+
+{% block content %}
     <h2>{{ header }}</h2>
     <div>
         <ol>
@@ -13,5 +9,4 @@
             {% endfor %}
         </ol>
     </div>
-</body>
-</html>
+{% endblock content %}

@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
+{% extends base_path %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
     <h1>{{ academy_name }}</h1>
     <p>{{ text }}</p>
-</body>
-</html>
+{% endblock %}
