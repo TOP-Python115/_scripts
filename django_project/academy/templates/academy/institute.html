@@ -1,0 +1,31 @@
+{% extends base_path %}
+
+
+{% block title %}
+    {{ faculty_short_ru }}
+{% endblock title %}
+
+
+{% block sidebar %}
+<!--    <td class="sidebar">-->
+<!--        <p class="menuitem">-->
+<!--            <a href="/academy/{{ faculty_short_en }}/">Кафедры</a></p>-->
+<!--        <p class="menuitem">-->
+<!--            <a href="/academy/{{ faculty_short_en }}/">История института</a></p>-->
+<!--    </td>-->
+{% endblock sidebar %}
+
+
+{% block content %}
+    <p><a href="/academy/">Главная</a></p>
+    <h2>{{ faculty_name }}</h2>
+    <h4>История</h4>
+    <p>...</p>
+    <h4>Кафедры</h4>
+    <ol>
+        {% for dep in departments %}
+            <li>{{ dep.name }}</li>
+        {% endfor %}
+    </ol>
+{% endblock content %}
+

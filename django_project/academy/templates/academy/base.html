@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <style>
+        .sidebar {
+            background-color: rgba(229, 229, 229, 50);
+            width: 150px;
+         }
+
+        .menuitem {
+            margin: 40px 0px 40px 5px;
+        }
+
+        .content {
+            padding: 0px 0px 0px 20px;
+        }
+    </style>
     <meta charset="UTF-8">
     <title>
         {% block title %}
@@ -9,8 +23,21 @@
     </title>
 </head>
 <body>
-  {% block content %}
-    <p>Уральский Федеральный Университет им. первого президента России Б.Н.Ельцина</p>
-  {% endblock content %}
+  <table>
+      <tr>
+          {% block sidebar %}
+            <td class="sidebar">
+                <p class="menuitem"><a href="/academy/">Институты</a></p>
+                <p class="menuitem"><a href="/academy/about">Об университете</a></p>
+                <p class="menuitem"><a>Контакты</a></p>
+            </td>
+          {% endblock sidebar %}
+          <td class="content">
+              {% block content %}
+                <p>Уральский Федеральный Университет им. первого президента России Б.Н.Ельцина</p>
+              {% endblock content %}
+          </td>
+      </tr>
+  </table>
 </body>
 </html>

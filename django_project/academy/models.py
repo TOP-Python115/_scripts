@@ -7,8 +7,16 @@ class Faculty(models.Model):
     name = models.CharField(max_length=100)
 
     @property
-    def short(self):
+    def short_en(self):
         return self.__repr__()
+
+    @property
+    def short_ru(self):
+        short = [
+            word[0].upper() if len(word) > 1 else word[0]
+            for word in str(self.name).replace('-', ' ').split()
+        ]
+        return ''.join(short)
 
     def __repr__(self):
         short = [
