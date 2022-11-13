@@ -1,20 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <style>
-        .sidebar {
-            background-color: rgba(229, 229, 229, 50);
-            width: 150px;
-         }
-
-        .menuitem {
-            margin: 40px 0px 40px 5px;
-        }
-
-        .content {
-            padding: 0px 0px 0px 20px;
-        }
-    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'academy/style.css' %}">
     <meta charset="UTF-8">
     <title>
         {% block title %}
