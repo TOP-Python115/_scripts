@@ -1,0 +1,24 @@
+body {
+    background-image: url('images/pattern2.svg');
+    background-position: center bottom;
+    background-repeat: repeat-x repeat-y;
+    z-index: -100;
+}
+
+tr {
+    vertical-align: top;
+}
+
+td {
+    padding: 20px;
+}
+
+.sidebar {
+    background-color: rgba(229, 229, 229, 50);
+    width: 150px;
+    height: 675px;
+ }
+
+.menuitem {
+    margin: 30px 0px 30px 5px;
+}

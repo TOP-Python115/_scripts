@@ -36,6 +36,10 @@ class Department(models.Model):
     financing = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     faculty_id = models.ForeignKey(Faculty, on_delete=models.CASCADE)
 
+    @property
+    def caped_name(self):
+        return str(self.name).capitalize()
+
     def __str__(self):
         return f'{self.name}'
 

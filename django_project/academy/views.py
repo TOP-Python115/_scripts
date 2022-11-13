@@ -15,7 +15,7 @@ class About(TemplateView):
             # объект контекста или словарь для подстановки в конструктор Context
             {
                 'base_path': 'academy/base.html',
-                'style_path': 'academy/style.css',
+                'style_path': 'academy/main_style.css',
                 'title': 'Об университете',
                 'academy_name': 'Уральский Федеральный Университет',
                 'text': 'Создан в 2011 году на базе Уральского Политехнического Института им. Кирова и Уральского Государственного Университета им. Горького',
@@ -32,7 +32,7 @@ class FacultiesView(ListView):
             'academy/institutes.html',
             {
                 'base_path': 'academy/base.html',
-                'style_path': 'academy/style.css',
+                'style_path': 'academy/main_style.css',
                 'title': 'Главная',
                 'header': 'Институты УрФУ',
                 'institutes': self.model.objects.all()
@@ -47,7 +47,7 @@ class FacultyView(DetailView):
         context = super().get_context_data()
         context.update({
             'base_path': 'academy/base.html',
-            'style_path': 'academy/style.css',
+            'style_path': 'academy/institute_style.css',
             'faculty_short_ru': self.object.short_ru,
             'faculty_short_en': self.object.short_en,
             'faculty_name': self.object.name,
