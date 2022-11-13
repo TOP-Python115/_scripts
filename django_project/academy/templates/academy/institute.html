@@ -19,8 +19,12 @@
 {% block content %}
     <p><a href="/academy/">Главная</a></p>
     <h2>{{ faculty_name }}</h2>
-    <h4>История</h4>
-    <p>...</p>
+
+    {% block history %}
+        <h4>История</h4>
+        <p>...</p>
+    {% endblock history %}
+
     <h4>Кафедры</h4>
     <ol>
         {% for dep in departments %}

@@ -60,6 +60,6 @@ class FacultyView(DetailView):
         context = self.get_context_data()
         return render(
             request,
-            'academy/institute.html',
+            'academy/history.html',
             context
         )
