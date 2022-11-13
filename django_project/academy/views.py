@@ -15,6 +15,7 @@ class About(TemplateView):
             # объект контекста или словарь для подстановки в конструктор Context
             {
                 'base_path': 'academy/base.html',
+                'style_path': 'academy/style.css',
                 'title': 'Об университете',
                 'academy_name': 'Уральский Федеральный Университет',
                 'text': 'Создан в 2011 году на базе Уральского Политехнического Института им. Кирова и Уральского Государственного Университета им. Горького',
@@ -31,6 +32,7 @@ class FacultiesView(ListView):
             'academy/institutes.html',
             {
                 'base_path': 'academy/base.html',
+                'style_path': 'academy/style.css',
                 'title': 'Главная',
                 'header': 'Институты УрФУ',
                 'institutes': self.model.objects.all()
@@ -43,11 +45,14 @@ class FacultyView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['base_path'] = 'academy/base.html'
-        context['faculty_short_ru'] = self.object.short_ru
-        context['faculty_short_en'] = self.object.short_en
-        context['faculty_name'] = self.object.name
-        context['departments'] = self.object.department_set.all()
+        context.update({
+            'base_path': 'academy/base.html',
+            'style_path': 'academy/style.css',
+            'faculty_short_ru': self.object.short_ru,
+            'faculty_short_en': self.object.short_en,
+            'faculty_name': self.object.name,
+            'departments': self.object.department_set.all()
+        })
         return context
 
     def get(self, request, *args, **kwargs):
