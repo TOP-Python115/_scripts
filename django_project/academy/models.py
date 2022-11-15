@@ -84,3 +84,5 @@ class Student(models.Model):
     rating = models.PositiveSmallIntegerField()
     groups = models.ManyToManyField(Group)
 
+    def __str__(self):
+        return f'{self.surname} {self.name}'
