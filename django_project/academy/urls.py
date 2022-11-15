@@ -16,7 +16,7 @@ urlpatterns += [
     path(f'{faculty.short_en}/',
          FacultyView.as_view(),
          {'pk': faculty.id},
-         name=f'{faculty!r}_main')
+         name=f'{faculty.short_en}_main')
     for faculty in faculties
 ]
 

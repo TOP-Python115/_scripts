@@ -1,9 +1,9 @@
 from django.views.generic import TemplateView, ListView, DetailView
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
-from .models import Faculty, Department
+from .models import Faculty, Department, Group
 from .forms import GroupAdd
 
 
@@ -66,8 +66,16 @@ class FacultyView(DetailView):
 
 def department_view(request, department: Department):
     if request.method == 'POST':
-        pass
+        form = GroupAdd(request.POST)
+        if form.is_valid():
+            group_name = form.cleaned_data['group_name']
+            group_start_year = form.cleaned_data['group_start_year'].year
+            group = Group(name=group_name, year=group_start_year, department_id=department)
+            group.save()
+        url = f'/academy/{department.faculty_id.short_en}/{department.short_en}/'
+        return HttpResponseRedirect(url)
     else:
+        # обработка GET запроса
         return render(
             request,
             'academy/department.html',

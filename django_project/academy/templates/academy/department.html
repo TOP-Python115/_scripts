@@ -11,11 +11,13 @@
 
 
 {% block content %}
+    <p><a href="/academy/{{ dep.faculty_id.short_en }}/">Назад</a></p>
+
     <div>
         <h3>{{ dep.caped_name }}</h3>
     </div>
     <div>
-        <form action="">
+        <form action="/academy/{{ dep.faculty_id.short_en }}/{{ dep.short_en }}/" method="post">
             {% csrf_token %}
             {{ form.as_div }}
             <input type="submit" value="Сохранить">
