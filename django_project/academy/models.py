@@ -7,10 +7,6 @@ class Faculty(models.Model):
     name = models.CharField(max_length=100)
 
     @property
-    def short_en(self):
-        return self.__repr__()
-
-    @property
     def short_ru(self):
         short = [
             word[0].upper() if len(word) > 1 else word[0]
@@ -18,7 +14,8 @@ class Faculty(models.Model):
         ]
         return ''.join(short)
 
-    def __repr__(self):
+    @property
+    def short_en(self):
         short = [
             translit(word[0].lower(), 'ru', reversed=True)
             for word in str(self.name).replace('-', ' ').split()
@@ -39,6 +36,23 @@ class Department(models.Model):
     @property
     def caped_name(self):
         return str(self.name).capitalize()
+
+    @property
+    def short_ru(self):
+        short = [
+            word[0].upper() if len(word) > 1 else word[0]
+            for word in str(self.name).replace('-', ' ').split()
+        ]
+        return ''.join(short)
+
+    @property
+    def short_en(self):
+        short = [
+            translit(word[0].lower(), 'ru', reversed=True)
+            for word in str(self.name).replace('-', ' ').split()
+            if len(word) > 1
+        ]
+        return ''.join(short)
 
     def __str__(self):
         return f'{self.name}'

@@ -2,7 +2,7 @@
 
 
 {% block title %}
-    {{ faculty_short_ru }}
+    {{ inst.short_ru }}
 {% endblock title %}
 
 
@@ -13,7 +13,7 @@
 
 {% block content %}
     <p><a href="/academy/">Главная</a></p>
-    <h2>{{ faculty_name }}</h2>
+    <h2>{{ inst.name }}</h2>
 
     {% block history %}
         <h4>История</h4>
@@ -23,7 +23,7 @@
     <h4>Кафедры</h4>
     <ol>
         {% for dep in departments %}
-            <li>{{ dep.caped_name }}</li>
+            <li><a href="/academy/{{ inst.short_en }}/{{ dep.short_en }}">{{ dep.caped_name }}</a></li>
         {% endfor %}
     </ol>
 {% endblock content %}

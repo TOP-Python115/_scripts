@@ -3,7 +3,8 @@ from django.views.generic import TemplateView, ListView, DetailView
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from .models import Faculty
+from .models import Faculty, Department
+from .forms import GroupAdd
 
 
 class About(TemplateView):
@@ -48,9 +49,7 @@ class FacultyView(DetailView):
         context.update({
             'base_path': 'academy/base.html',
             'style_path': 'academy/institute_style.css',
-            'faculty_short_ru': self.object.short_ru,
-            'faculty_short_en': self.object.short_en,
-            'faculty_name': self.object.name,
+            'inst': self.object,
             'departments': self.object.department_set.all()
         })
         return context
@@ -63,3 +62,20 @@ class FacultyView(DetailView):
             'academy/history.html',
             context
         )
+
+
+def department_view(request, department: Department):
+    if request.method == 'POST':
+        pass
+    else:
+        return render(
+            request,
+            'academy/department.html',
+            {
+                'base_path': 'academy/base.html',
+                'style_path': 'academy/department_style.css',
+                'dep': department,
+                'form': GroupAdd()
+            }
+        )
+
