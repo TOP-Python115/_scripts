@@ -1,4 +1,5 @@
 {% extends base_path %}
+{% load crispy_forms_tags %}
 
 
 {% block title %}
@@ -17,9 +18,10 @@
         <h3>{{ dep.caped_name }}</h3>
     </div>
     <div>
-        <form action="/academy/{{ dep.faculty_id.short_en }}/{{ dep.short_en }}/" method="post">
+        <form action="/academy/{{ dep.faculty_id.short_en }}/{{ dep.short_en }}/"
+              method="post">
             {% csrf_token %}
-            {{ form.as_div }}
+            {{ form|crispy }}
             <input type="submit" value="Сохранить">
         </form>
     </div>
