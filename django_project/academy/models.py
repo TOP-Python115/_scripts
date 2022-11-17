@@ -63,6 +63,14 @@ class Group(models.Model):
     year = models.PositiveSmallIntegerField()
     department_id = models.ForeignKey(Department, on_delete=models.CASCADE)
 
+    @property
+    def short_en(self):
+        short = [
+            translit(word.lower(), 'ru', reversed=True)
+            for word in str(self.name).replace('-', ' ').split()
+        ]
+        return ''.join(short)
+
     def __str__(self):
         return f'{self.name}'
 

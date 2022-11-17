@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Faculty, Department, Group
-from .forms import GroupAdd
+from .forms import GroupAdd, StudentAdd
 
 
 class About(TemplateView):
@@ -87,3 +87,18 @@ def department_view(request, department: Department):
             }
         )
 
+
+def group_view(request, group: Group):
+    if request.method == 'POST':
+        pass
+    else:
+        # обработка GET запроса
+        return render(
+            request,
+            'academy/group.html',
+            {
+                'base_path': 'academy/base.html',
+                'group': group,
+                'form': StudentAdd()
+            }
+        )

@@ -1,8 +1,8 @@
 from django.urls import path
 
-from .models import Faculty, Department
+from .models import Faculty, Department, Group
 from .fbv_views import institutes_list, faculty_main
-from .views import About, FacultiesView, FacultyView, department_view
+from .views import About, FacultiesView, FacultyView, department_view, group_view
 
 
 urlpatterns = [
@@ -27,4 +27,12 @@ urlpatterns += [
          {'department': dep},
          name=f'{dep.short_en}_add_group')
     for dep in departments
+]
+
+groups = Group.objects.all()
+urlpatterns += [
+    path(f'{gr.department_id.faculty_id.short_en}/{gr.department_id.short_en}/{gr.short_en}/',
+         group_view,
+         {'group': gr})
+    for gr in groups
 ]

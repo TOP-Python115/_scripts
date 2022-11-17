@@ -1,0 +1,18 @@
+{% extends base_path %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+    {{ group.name }}
+{% endblock title %}
+
+
+{% block sidebar %}
+{% endblock sidebar %}
+
+
+{% block content %}
+    <p><a href="/academy/{{ dep.faculty_id.short_en }}/">Назад</a></p>
+
+    {% crispy form form.helper %}
+{% endblock content %}
