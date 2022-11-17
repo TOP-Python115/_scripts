@@ -2,6 +2,7 @@ from django.views.generic import TemplateView, ListView, DetailView
 
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 from .models import Faculty, Department, Group
 from .forms import GroupAdd, StudentAdd
@@ -64,6 +65,7 @@ class FacultyView(DetailView):
         )
 
 
+@login_required
 def department_view(request, department: Department):
     if request.method == 'POST':
         form = GroupAdd(request.POST)

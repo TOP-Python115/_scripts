@@ -1,0 +1,31 @@
+{% extends base_path %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+    Регистрация
+{% endblock title %}
+
+
+{% block sidebar %}
+{% endblock sidebar %}
+
+
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Регистрация</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Уже есть аккаунт? <a class="ml-2" href="/login">Вход</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}
