@@ -1,29 +1,48 @@
-from django.forms import Form, CharField, DateField, CheckboxInput
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Submit, HTML
-from crispy_forms.bootstrap import PrependedText, InlineCheckboxes
+from django import forms
+from django.forms import fields
+from django.forms import widgets
+
+from datetime import datetime as dt
 
 
-class GroupAdd(Form):
-    group_name = CharField(label='Идентификатор группы', min_length=4, max_length=10)
-    group_start_year = DateField(label='Год начала обучения', input_formats=['%Y'])
+years_range = [year for year in range(dt.now().year, dt.now().year-6, -1)]
 
 
-class StudentAdd(Form):
-    student_name = CharField()
-    is_curator_name = CheckboxInput()
-
-    class Meta:
-        fields = ['student_name', 'is_curator']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            HTML('<h4>{{ group.name }}</h4>'),
-            PrependedText('student_name', text='ФИО студента'),
-            # Field('student_name', title='ФИО студента'),
-            # Field('is_curator_name', title='куратор'),
-            # InlineCheckboxes('is_curator'),
-            Submit('submit', 'Добавить студента')
+class GroupAdd(forms.Form):
+    group_name = fields.CharField(
+        label='Идентификатор группы',
+        min_length=4,
+        max_length=10
+    )
+    group_start_year = fields.DateField(
+        label='Год начала обучения',
+        input_formats=['%Y'],
+        widget=widgets.SelectDateWidget(
+            years=years_range
         )
+    )
+
+
+class StudentAdd(forms.Form):
+    """"""
+    surname = fields.CharField(
+        label='Фамилия студента:',
+        min_length=1
+    )
+    name = fields.CharField(
+        label='Имя студента:',
+        min_length=1
+    )
+    is_curator = fields.BooleanField(
+        required=False
+    )
+    rating = fields.IntegerField(
+        label='Рейтинг студента:',
+        min_value=0,
+        max_value=5,
+        widget=widgets.NumberInput(
+            # attrs={
+            #     'class': ''
+            # }
+        )
+    )

@@ -1,0 +1,36 @@
+{% extends 'bs_academy/base.html' %}
+
+{% load bootstrap5 %}
+
+
+{% block title %}
+    {{ object.name }}
+{% endblock title %}
+
+
+{% block content %}
+    <div class="row">
+        <h1 class="display-5">{{ object }}</h1>
+    </div>
+    <br>
+    <div class="row">
+        <form action="/academy/{{ object.department_id.faculty_id.short_en }}/{{ object.department_id.short_en }}/{{ object.short_en }}/"
+              method="post"
+              role="form">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <br>
+            {% buttons %}
+                <button type="submit"
+                        class="btn btn-success">
+                    Сохранить
+                </button>
+                <a class="btn btn-light"
+                   role="button"
+                   href="/academy/{{ object.department_id.faculty_id.short_en }}/{{ object.department_id.short_en }}/">
+                    Назад
+                </a>
+            {% endbuttons %}
+        </form>
+    </div>
+{% endblock content %}

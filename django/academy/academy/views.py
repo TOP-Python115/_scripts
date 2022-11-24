@@ -1,10 +1,12 @@
-from django.views.generic import TemplateView, ListView, DetailView
+from pprint import pprint
+
+from django.views.generic import TemplateView, ListView, DetailView, FormView
 
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
-from .models import Faculty, Department, Group
+from .models import Faculty, Department, Group, Student
 from .forms import GroupAdd, StudentAdd
 
 
@@ -71,36 +73,48 @@ def department_view(request, department: Department):
         form = GroupAdd(request.POST)
         if form.is_valid():
             group_name = form.cleaned_data['group_name']
+            print(form.cleaned_data['group_start_year'])
+            print(type(form.cleaned_data['group_start_year']))
             group_start_year = form.cleaned_data['group_start_year'].year
             group = Group(name=group_name, year=group_start_year, department_id=department)
             group.save()
+        else:
+            print('GroupAdd form is invalid!')
         url = f'/academy/{department.faculty_id.short_en}/{department.short_en}/'
         return HttpResponseRedirect(url)
     else:
         # обработка GET запроса
         return render(
             request,
-            'academy/department.html',
+            # 'academy/department.html',
+            'bs_academy/department.html',
             {
-                'base_path': 'academy/base.html',
-                'style_path': 'academy/department_style.css',
+                # 'base_path': 'academy/base.html',
+                # 'style_path': 'academy/department_style.css',
                 'dep': department,
                 'form': GroupAdd()
             }
         )
 
 
-def group_view(request, group: Group):
-    if request.method == 'POST':
-        pass
-    else:
-        # обработка GET запроса
-        return render(
-            request,
-            'academy/group.html',
-            {
-                'base_path': 'academy/base.html',
-                'group': group,
-                'form': StudentAdd()
-            }
+class GroupView(FormView, DetailView):
+    template_name = 'bs_academy/group.html'
+    model = Group
+    form_class = StudentAdd
+
+    def form_valid(self, form):
+        group = self.get_object()
+        student = Student(**{
+            'name': form.cleaned_data['name'],
+            'surname': form.cleaned_data['surname'],
+            'rating': form.cleaned_data['rating'],
+        })
+        student.save()
+        student.groups.add(group)
+        url = (
+            f'/academy'
+            f'/{group.department_id.faculty_id.short_en}'
+            f'/{group.department_id.short_en}'
+            f'/{group.short_en}'
         )
+        return HttpResponseRedirect(url)
